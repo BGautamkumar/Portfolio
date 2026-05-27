@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&display=swap");
+
+@plugin "tailwindcss-animate";
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scrolling for navigation */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem; /* Account for fixed navbar */
+}
+
+/* Ensure sections are properly positioned for smooth scrolling */
+section[id] {
+  scroll-margin-top: 4rem;
+}
+
+@theme {
+  --color-charcoal: #0a0a0a;
+  --color-graphite: #1a1a1a;
+  --color-slate: #2a2a2a;
+  --color-neutral: #404040;
+  --color-muted: #666666;
+  --color-accent: #7c3aed;
+  --color-accent-hover: #6d28d9;
+
+  --font-primary: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: #ffffff;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium layout utilities */
+.container-premium {
+  @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
+}
+
+.section-premium {
+  @apply py-6 lg:py-4 relative;
+}
+
+/* Typography */
+.text-display {
+  @apply font-display text-5xl lg:text-7xl font-bold tracking-tight;
+}
+
+.text-headline {
+  @apply font-display text-3xl lg:text-5xl font-semibold tracking-tight;
+}
+
+.text-title {
+  @apply font-display text-2xl lg:text-3xl font-medium;
+}
+
+.text-body {
+  @apply text-neutral-400 text-lg leading-relaxed;
+}
+
+.text-caption {
+  @apply text-neutral-500 text-sm leading-relaxed;
+}
+
+/* Navigation */
+.nav-premium {
+  @apply fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-charcoal/80 border-b border-neutral/20;
+}
+
+.nav-link-premium {
+  @apply text-neutral-400 hover:text-white transition-colors duration-200 font-medium;
+}
+
+/* Performance Optimizations */
+.gpu-accelerated {
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.smooth-animation {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Restore default cursor */
+html, body {
+  cursor: auto !important;
+}
