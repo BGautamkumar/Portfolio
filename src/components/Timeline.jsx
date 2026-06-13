@@ -1,122 +1,59 @@
-"use client";
-import { motion } from "framer-motion";
-import React from "react";
-
-const ExperienceCard = ({ experience, index, isLast }) => {
+const TimelineEntry = ({ experience }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50, z: -50 }}
-      whileInView={{ opacity: 1, x: 0, z: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      className={`relative ${!isLast ? 'mb-16' : ''}`}
-      whileHover={{ 
-        scale: 1.02, 
-        rotateY: 5,
-        z: 20
-      }}
-      style={{ transformStyle: "preserve-3d" }}
-    >
-      {/* Timeline Line */}
-      {!isLast && (
-        <div className="absolute left-6 top-16 w-0.5 h-full bg-gradient-to-b from-purple-500/20 to-transparent" />
-      )}
-
-      <div className="flex gap-8">
-        {/* Timeline Dot */}
-        <div className="relative shrink-0">
-          <motion.div
-            whileHover={{ scale: 1.2 }}
-            className="w-12 h-12 backdrop-blur-lg bg-white/10 border border-white/20 rounded-full flex items-center justify-center border-4 border-white/10 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]"
-          >
-            <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full" />
-          </motion.div>
-        </div>
-
-        {/* Experience Content */}
-        <div className="flex-1 min-w-0">
-          {/* Date Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-block mb-4"
-          >
-            <span className="px-3 py-1 backdrop-blur-lg bg-white/10 border border-white/20 rounded-full text-purple-300 text-sm font-medium">
-              {experience.date}
-            </span>
-          </motion.div>
-
-          {/* Title and Company */}
-          <h3 className="text-title text-white mb-2">
-            {experience.title}
-          </h3>
-          <p className="text-body text-cyan-300 mb-6">
-            {experience.job}
-          </p>
-
-          {/* Achievements */}
-          <div className="space-y-3">
-            {experience.contents.map((content, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + idx * 0.1 }}
-                className="flex items-start gap-3"
-              >
-                <div className="w-1.5 h-1.5 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full mt-2 shrink-0" />
-                <p className="text-caption text-neutral-300 leading-relaxed">
-                  {content}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-y-8 md:gap-y-0 pt-12 pb-20 md:pt-16 md:pb-28 border-t border-black/8 group">
+      {/* Left Column: Date & Company */}
+      <div className="md:col-span-4 pr-4">
+        <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-black/40 block mb-2 transition-colors duration-500 group-hover:text-black/60">
+          {experience.date}
+        </span>
+        <h4 className="font-['Clash_Display'] text-lg md:text-xl font-medium text-black transition-colors duration-500">
+          {experience.company}
+        </h4>
       </div>
-    </motion.div>
+
+      {/* Center Column: Dot */}
+      <div className="hidden md:flex justify-center items-start pt-3 md:col-span-1">
+        <div className="w-1.5 h-1.5 rounded-full bg-black/20 transition-all duration-300 group-hover:bg-black" />
+      </div>
+
+      {/* Right Column: Title & Description */}
+      <div className="md:col-span-7">
+        <h3 className="font-['Clash_Display'] text-xl md:text-2xl font-medium text-black mb-5 tracking-tight">
+          {experience.title}
+        </h3>
+
+        <div className="space-y-3.5">
+          {experience.contents.map((content, idx) => (
+            <div
+              key={idx}
+              className="flex items-start gap-3"
+            >
+              {/* Minimal bullet */}
+              <span className="text-black/30 text-[13px] md:text-sm mt-0.5 leading-relaxed shrink-0">
+                •
+              </span>
+              <p className="text-[13px] md:text-sm text-black/60 leading-relaxed max-w-2xl">
+                {content}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Explicit massive gap spacer to guarantee distance before the next entry */}
+        <div className="h-16 md:h-32 " style={{ marginTop: '-10vh' }}></div>
+      </div>
+    </div>
   );
 };
 
 export const Timeline = ({ data }) => {
   return (
-    <section id="experience" className="relative overflow-hidden py-12 lg:py-16">
-      <div className="container-premium">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-headline mb-4 relative">
-            <span className="relative">
-              <span className="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-cyan-600/30 blur-xl" />
-              <span className="relative bg-gradient-to-r from-purple-300 via-cyan-300 to-blue-300 bg-clip-text text-transparent">
-                Professional Experience
-              </span>
-            </span>
-          </h2>
-          <div className="w-70 h-1 bg-gradient-to-r from-transparent via-neutral-600 to-transparent mx-auto mb-8" />
-          <p className="text-body max-w-2xl mx-auto">
-            My journey through different roles and industries, building expertise 
-            in software development and system architecture.
-          </p>
-        </motion.div>
-
-        {/* Timeline */}
-        <div className="max-w-4xl mx-auto">
-          {data.map((experience, index) => (
-            <ExperienceCard
-              key={index}
-              experience={experience}
-              index={index}
-              isLast={index === data.length - 1}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="relative w-full">
+      {data.map((experience, index) => (
+        <TimelineEntry key={index} experience={experience} />
+      ))}
+    </div>
   );
 };
+
+export default Timeline;

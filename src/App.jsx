@@ -1,116 +1,94 @@
-import React, { useEffect, Suspense, lazy } from "react";
-import { motion } from "framer-motion";
+import React, { Suspense, lazy, useState, useCallback, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
-import { initSmoothScroll } from "./utils/smoothScroll";
-import { performanceMonitor } from "./utils/performanceMonitor";
-import { SectionLoader, CardSkeleton } from "./components/LoadingSkeleton";
-import PerformanceIndicator from "./components/PerformanceIndicator";
 
-// Lazy load heavy components
-const About = lazy(() => import("./sections/About-premium"));
-const Projects = lazy(() => import("./sections/Projects-3x3"));
-const Experiences = lazy(() => import("./sections/Experiences"));
+import Preloader from "./components/Preloader";
+import PageTransition from "./components/PageTransition";
+import { getLenis } from "./hooks/useLenis";
+
+// Lazy load below-fold sections
+const About = lazy(() => import("./sections/About"));
+const Projects = lazy(() => import("./sections/Projects"));
+const Experience = lazy(() => import("./sections/Experience"));
 const Contact = lazy(() => import("./sections/Contact"));
 
+const AllProjects = lazy(() => import("./pages/AllProjects"));
+
+const SectionFallback = () => <div className="min-h-[50vh]" />;
+
+const HomePage = ({ preloaderDone }) => (
+  <main className="relative">
+    <Hero preloaderDone={preloaderDone} />
+
+    <div className="bg-[#010210]">
+      <Suspense fallback={<SectionFallback />}>
+        <About />
+      </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+        <Projects />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Experience />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Contact />
+      </Suspense>
+    </div>
+  </main>
+);
+
 const App = () => {
-  useEffect(() => {
-    // Initialize smooth scrolling
-    initSmoothScroll();
-    
-    // Start performance monitoring in development
-    if (process.env.NODE_ENV === 'development') {
-      performanceMonitor.startMonitoring();
-      
-      // Log performance report every 30 seconds
-      const interval = setInterval(() => {
-        console.log('Performance Report:', performanceMonitor.getReport());
-      }, 30000);
-      
-      return () => {
-        clearInterval(interval);
-        performanceMonitor.stopMonitoring();
-      };
-    }
+  const [preloaderDone, setPreloaderDone] = useState(false);
+  const location = useLocation();
+
+  const handlePreloaderComplete = useCallback(() => {
+    setPreloaderDone(true);
   }, []);
 
+  // Scroll to top on route change
+  useEffect(() => {
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
   return (
-    <main className="min-h-screen relative overflow-hidden">
-      {/* Multi-layer animated background */}
-      <div className="fixed inset-0 -z-50">
-        {/* Base mesh gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black" />
-        
-        {/* Animated radial glows */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-purple-700/15 rounded-full blur-3xl animate-pulse delay-2000" />
-        </div>
-        
-        {/* Subtle animated noise texture */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-900/8 to-transparent animate-pulse" />
-        </div>
-        
-        {/* Soft floating light blobs */}
-        <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-purple-500/12 to-purple-700/12 rounded-full blur-2xl"
+    <>
+      {/* Preloader */}
+      <Preloader onComplete={handlePreloaderComplete} />
+
+      {/* ═══ Cinematic Background System ═══ */}
+      <div className="fixed inset-0 -z-50 bg-black"></div>
+
+      {/* ═══ Navbar sits OUTSIDE PageTransition so transform doesn't break position:fixed ═══ */}
+      <Navbar />
+
+      {/* ═══ Content ═══ */}
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={
+            <PageTransition>
+              <HomePage preloaderDone={preloaderDone} />
+            </PageTransition>
+          } />
+          <Route 
+            path="/projects" 
+            element={
+              <PageTransition>
+                <Suspense fallback={<SectionFallback />}>
+                  <AllProjects />
+                </Suspense>
+              </PageTransition>
+            } 
           />
-          <motion.div
-            animate={{
-              x: [0, -80, 0],
-              y: [0, 60, 0],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute bottom-1/3 right-1/4 w-56 h-56 bg-gradient-to-r from-purple-600/10 to-purple-800/10 rounded-full blur-2xl"
-          />
-        </div>
-      </div>
-      
-      {/* 3D perspective container */}
-      <div className="relative" style={{ perspective: '1000px' }}>
-        <Navbar />
-        <Hero />
-        <Suspense fallback={<SectionLoader />}>
-          <About />
-        </Suspense>
-        <Suspense fallback={
-          <div className="container-premium py-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <CardSkeleton key={i} />
-              ))}
-            </div>
-          </div>
-        }>
-          <Projects />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <Experiences />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <Contact />
-        </Suspense>
-      </div>
-      
-      {/* Performance Indicator */}
-      <PerformanceIndicator />
-    </main>
+        </Routes>
+      </AnimatePresence>
+    </>
   );
 };
 

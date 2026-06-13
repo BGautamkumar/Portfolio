@@ -1,155 +1,53 @@
 export const myProjects = [
   {
     id: 1,
-    title: "E-commerce Platform",
-    description:
-      "Facilitates purchases from international websites like Amazon and eBay.",
+    title: "Zoro Trip Planner",
+    category: "Travel Planning Platform",
+    description: "AI-powered travel planning application for generating personalized travel itineraries and recommendations.",
     subDescription: [
-      "Built a scalable application with ASP.NET Core MVC, integrating global platforms like Amazon for domestic delivery.",
-      "Implemented secure authentication and database management using ASP.NET Core Identity and Entity Framework Core.",
-      "Designed a responsive frontend with Tailwind CSS, enhancing user experience.",
-      "Added payment systems, localization, and product filtering for functionality improvements.",
+      "Built an intelligent travel planning platform with itinerary generation.",
+      "Provides destination recommendations and travel management features.",
+      "Designed to simplify trip organization and planning.",
+      "Integrated Arcjet and Clerk for highly secure serverless routes"
     ],
     href: "",
+    github: "https://github.com/BGautamkumar/Zoro-Trip-Planner",
     logo: "",
-    image: "/assets/projects/accessories.jpg",
+    image: "/assets/projects/zoro-trip-planner.jpg",
     tags: [
-      {
-        id: 1,
-        name: "C#",
-        path: "/assets/logos/csharp.svg",
-      },
-      {
-        id: 2,
-        name: ".Net",
-        path: "/assets/logos/dotnet.svg",
-      },
-      {
-        id: 3,
-        name: "Ef Core",
-        path: "/assets/logos/efcore.png",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
-      },
-    ],
+      { id: 1, name: "React", path: "/assets/logos/react.svg" },
+      { id: 2, name: "JavaScript", path: "/assets/logos/javascript.svg" },
+      { id: 3, name: "Clerk", path: "/assets/logos2/clerk.svg" },
+      { id: 2, name: "Convex", path: "/assets/logos2/convex.svg" },
+      { id: 2, name: "Tailwind Css", path: "/assets/logos2/tailwind-css.svg" }
+    ]
   },
   {
     id: 2,
-    title: "Authentication & Authorization System",
-    description:
-      "A secure authentication and authorization system using Auth0 for seamless user management.",
+    title: "AUREV",
+    category: "Realtime AI Communication Platform",
+    description: "A futuristic realtime communication platform featuring secure messaging, stream rooms, intelligent UX, virtualization, and production-grade architecture.",
     subDescription: [
-      "Integrated Auth0 for authentication, supporting OAuth, JWT, and multi-factor authentication.",
-      "Implemented role-based access control (RBAC) for fine-grained user permissions.",
-      "Developed a React-based frontend with Tailwind CSS for a sleek user experience.",
-      "Connected to a secure SQLite database for user data storage.",
+      "Live chat application built with React, Node, and WebSockets.",
+      "Features realtime messaging, stream rooms and premium UI architecture.",
+      "Engineered scalable backend systems for high volume live messaging.",
+      "Architected dynamic user reputation engines backed by MongoDB databases."
     ],
     href: "",
+    github: "https://github.com/BGautamkumar/Aurev",
     logo: "",
-    image: "/assets/projects/auth-system.jpg",
+    image: "/assets/projects/aurev.jpg",
     tags: [
-      {
-        id: 1,
-        name: "Auth0",
-        path: "/assets/logos/auth0.svg",
-      },
-      {
-        id: 2,
-        name: "React",
-        path: "/assets/logos/react.svg",
-      },
-      {
-        id: 3,
-        name: "SQLite",
-        path: "/assets/logos/sqlite.svg",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
-      },
-    ],
+      { id: 1, name: "React", path: "/assets/logos/react.svg" },
+      { id: 2, name: "NodeJS", path: "/assets/logos2/nodejs.svg" },
+      { id: 3, name: "MongoDB", path: "/assets/logos2/mongodb.svg" },
+      { id: 4, name: "Socket.io", path: "/assets/logos2/socket-io1.png" }
+    ]
   },
   {
     id: 3,
-    title: "Blazor Web App",
-    description:
-      "A modern, interactive web application built with Blazor WebAssembly and .NET Core.",
-    subDescription: [
-      "Developed a fully interactive Single Page Application (SPA) using Blazor WebAssembly.",
-      "Implemented API interactions using .NET Core for a robust backend.",
-      "Designed responsive UI components with Tailwind CSS for an enhanced UX.",
-      "Integrated SQLite for efficient client-side database storage.",
-    ],
-    href: "",
-    logo: "",
-    image: "/assets/projects/blazor-app.jpg",
-    tags: [
-      {
-        id: 1,
-        name: "Blazor",
-        path: "/assets/logos/blazor.svg",
-      },
-      {
-        id: 2,
-        name: ".NET Core",
-        path: "/assets/logos/dotnetcore.svg",
-      },
-      {
-        id: 3,
-        name: "SQLite",
-        path: "/assets/logos/sqlite.svg",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "C++ Game Engine",
-    description:
-      "A lightweight C++ game engine designed for 2D and 3D game development.",
-    subDescription: [
-      "Built a powerful rendering engine using OpenGL and C++.",
-      "Developed a physics engine with collision detection and particle effects.",
-      "Implemented a scripting system for easy game customization.",
-      "Optimized performance with multi-threading and efficient memory management.",
-    ],
-    href: "",
-    logo: "",
-    image: "/assets/projects/game-engine.jpg",
-    tags: [
-      {
-        id: 1,
-        name: "C++",
-        path: "/assets/logos/cplusplus.svg",
-      },
-      {
-        id: 2,
-        name: "C#",
-        path: "/assets/logos/csharp.svg",
-      },
-      {
-        id: 3,
-        name: "Git",
-        path: "/assets/logos/git.svg",
-      },
-      {
-        id: 4,
-        name: "Microsoft",
-        path: "/assets/logos/microsoft.svg",
-      },
-    ],
-  },
-  {
-    id: 5,
     title: "WordPress Custom Theme",
+    category: "Web Design",
     description:
       "A fully customizable WordPress theme optimized for performance and SEO.",
     subDescription: [
@@ -159,68 +57,105 @@ export const myProjects = [
       "Implemented custom widgets and plugin compatibility for extended functionality.",
     ],
     href: "",
+    github: "",
     logo: "",
     image: "/assets/projects/wordpress-theme.jpg",
     tags: [
-      {
-        id: 1,
-        name: "WordPress",
-        path: "/assets/logos/wordpress.svg",
-      },
-      {
-        id: 2,
-        name: "HTML5",
-        path: "/assets/logos/html5.svg",
-      },
-      {
-        id: 3,
-        name: "CSS3",
-        path: "/assets/logos/css3.svg",
-      },
-      {
-        id: 4,
-        name: "Vite.js",
-        path: "/assets/logos/vitejs.svg",
-      },
+      { id: 1, name: "Wordpress", path: "/assets/logos/wordpress.svg" },
+      { id: 2, name: "Html5", path: "/assets/logos/html5.svg" },
+      { id: 3, name: "css3", path: "/assets/logos/css3.svg" },
+      { id: 4, name: "vitejs", path: "/assets/logos/vitejs.svg" },
+    ],
+  },
+
+  {
+    id: 5,
+    title: "Authentication & Authorization",
+    category: "Security",
+    description:
+      "A secure authorization system using Auth0 for seamless user management.",
+    subDescription: [
+      "Integrated Auth0 for authentication, supporting OAuth, JWT, and multi-factor authentication.",
+      "Implemented role-based access control (RBAC) for fine-grained user permissions.",
+      "Developed a React-based frontend with Tailwind CSS for a sleek user experience.",
+      "Connected to a secure SQLite database for user data storage.",
+    ],
+    href: "",
+    github: "",
+    logo: "",
+    image: "/assets/projects/auth-system.jpg",
+    tags: [
+      { id: 1, name: "Auth0", path: "/assets/logos/auth0.svg" },
+      { id: 2, name: "react", path: "/assets/logos/react.svg" },
+      { id: 3, name: "sqlite", path: "/assets/logos/sqlite.svg" },
+      { id: 4, name: "tailwindcss", path: "/assets/logos/tailwindcss.svg" },
     ],
   },
   {
     id: 6,
-    title: "Online Learning Platform",
-    description:
-      "A web application that allows users to enroll in courses, watch video lectures, and take quizzes.",
+    title: "RealityDrop",
+    category: "Modern Web Application",
+    description: "Interactive web platform focused on delivering engaging user experiences and responsive design.",
     subDescription: [
-      "Built using Blazor WebAssembly for a seamless SPA experience.",
-      "Implemented video streaming with Azure Media Services.",
-      "Added a quiz system with dynamic question generation and real-time grading.",
-      "Integrated Stripe API for secure payment processing.",
+      "Engineered a geospatial messaging platform using advanced MongoDB queries.",
+      "Developed realtime event synchronization systems using Node and WebSockets.",
+      "Secured cloud media storage pipelines using AWS and Express.",
+      "Integrated interactive dynamic mapping interfaces utilizing React and Mapbox."
     ],
     href: "",
+    github: "https://github.com/BGautamkumar/realitydrop",
     logo: "",
-    image: "/assets/projects/elearning.jpg",
+    image: "/assets/projects/realitydrop.jpg",
     tags: [
-      {
-        id: 1,
-        name: "Blazor",
-        path: "/assets/logos/blazor.svg",
-      },
-      {
-        id: 2,
-        name: "Azure",
-        path: "/assets/logos/azure.svg",
-      },
-      {
-        id: 3,
-        name: "Stripe",
-        path: "/assets/logos/stripe.svg",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
-      },
+      { id: 1, name: "React", path: "/assets/logos/react.svg" },
+      { id: 2, name: "JavaScript", path: "/assets/logos/javascript.svg" },
+      { id: 3, name: "NodeJS", path: "/assets/logos2/nodejs.svg" },
+      { id: 4, name: "Socket.io", path: "/assets/logos2/socket-io1.png" }
+    ]
+  },
+  {
+    id: 7,
+    title: "C++ Game Engine",
+    category: "Game Development",
+    description:
+      "A lightweight C++ game engine designed for 2D and 3D game development.",
+    subDescription: [
+      "Built a powerful rendering engine using OpenGL and C++.",
+      "Developed a physics engine with collision detection and particle effects.",
+      "Implemented a scripting system for easy game customization.",
+      "Optimized performance with multi-threading and efficient memory management.",
+    ],
+    href: "",
+    github: "",
+    logo: "",
+    image: "/assets/projects/game-engine.jpg",
+    tags: [
+      { id: 1, name: "c++", path: "/assets/logos/cplusplus.svg" },
+      { id: 2, name: "csharp", path: "/assets/logos/csharp.svg" },
+      { id: 3, name: "git", path: "/assets/logos/git.svg" },
+      { id: 4, name: "microsoft", path: "/assets/logos/microsoft.svg" },
     ],
   },
+  {
+    id: 8,
+    title: "Weather Forecasting V1.2",
+    category: "Weather Prediction Application",
+    description: "Weather forecasting system providing real-time weather updates and predictive insights.",
+    subDescription: [
+      "Built weather data visualization system.",
+      "Provides realtime forecasting information.",
+      "Focused on responsive user experience."
+    ],
+    href: "",
+    github: "https://github.com/BGautamkumar/Weather-ForecastingV1.2",
+    logo: "",
+    image: "/assets/projects/weather-forecasting.jpg",
+    tags: [
+      { id: 1, name: "Python", path: "/assets/logos/python.svg" },
+      { id: 2, name: "HTML", path: "/assets/logos/html5.svg" },
+      { id: 3, name: "CSS", path: "/assets/logos/css.svg" }
+    ]
+  }
 ];
 
 export const skills = [
@@ -228,7 +163,7 @@ export const skills = [
   { name: "JavaScript", logo: "/assets/logos/javascript.svg" },
   { name: ".NET Core", logo: "/assets/logos/dotnetcore.svg" },
   { name: "ASP.NET Core", logo: "/assets/logos/dotnet.svg" },
-  { name: "Entity Framework Core", logo: "/assets/logos/efcore.png" },
+  { name: "EF Core", logo: "/assets/logos/efcore.png" },
   { name: "SQL", logo: "/assets/logos/microsoftsqlserver.svg" },
   { name: "Tailwind CSS", logo: "/assets/logos/tailwindcss.svg" },
   { name: "HTML5", logo: "/assets/logos/html5.svg" },
@@ -245,41 +180,29 @@ export const skills = [
   { name: "Stripe", logo: "/assets/logos/stripe.svg" },
   { name: "Java", logo: "/assets/logos/java-vertical.svg" },
   { name: "MongoDB", logo: "/assets/logos/MongoDB.svg" },
-  { name: "Postman", logo: "/assets/logos/postman-icon-svgrepo-com.svg" }
+  { name: "Postman", logo: "/assets/logos/postman-icon-svgrepo-com.svg" },
 ];
 
 export const experiences = [
   {
-    title: "Software Developer",
-    job: "Security & Defense Projects",
-    date: "2021-2023",
+    title: "Front-End Developer",
+    company: "Edunet",
     contents: [
-      "Enhanced application security and developed new features, adhering to standards set by the Passive Defense Organization and National Cyberspace Center.",
-      "Designed and implemented intuitive map interfaces using MapsUI, enhancing user experience and enabling seamless interactive map integration.",
-      "Developed applications for industrial automation, leveraging C++ and the Fatek API for PLC communication.",
-      "Enhanced responsiveness and usability of applications using Windows Forms and WPF frameworks.",
-      "Executed XML to SVG conversions using X-DOM, ensuring dynamic and efficient data visualization.",
+      "Collaborated with mentors through code reviews to refine UI decisions, accessibility standards, and performance trade-offs, contributing to production-ready frontend components.",
+      "Optimized application performance by implementing code-splitting, lazy loading, and asset optimization.",
+      "Built a responsive portfolio using React.js, Vite, and Tailwind CSS with component-based architecture.",
+      "Reduced page load time by 35% and improved rendering speed across devices.",
     ],
   },
   {
-    title: "Back-End Developer",
-    job: "Car Manufacture",
-    date: "2023-2024",
+    title: "Software Engineer Virtual",
+    company: "Blackbird × Forage",
     contents: [
-      "Engineered systems for large-scale data ingestion and analysis, ensuring efficient data processing and storage.",
-      "Developed back-end systems enabling vehicle-to-cloud communication for telemetry, diagnostics, and remote control:",
-      "✅ Implemented secure APIs, following ISO 26262 automotive safety standards.",
-      "✅ Ensured data privacy for customers and partners through industry-compliant protocols.",
-      "✅ Delivered remote features like over-the-air updates, real-time tracking, and remote start capabilities.",
-    ],
-  },
-  {
-    title: "Freelance Developer",
-    job: "Self-Employed",
-    date: "2025-Present",
-    contents: [
-      "Created a personal portfolio using Three.js, React, Vite, and WebAPI to showcase technical expertise.",
-      "Continuously enhancing technical skills and expanding expertise in modern web development and back-end technologies.",
+      "Implemented secure form validation using React, Material UI, and Jest testing.",
+      "Designed A/B testing experiments to improve onboarding engagement and profile completion.",
+      "Built Arduino temperature monitoring system using thermistors and automated LED alerts.",
+      "Evaluated AWS services to identify scalable and cost-effective infrastructure solutions.",
+      "Applied Agile methodologies through sprint retrospectives and collaborative problem-solving activities",
     ],
   },
 ];
