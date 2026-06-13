@@ -100,7 +100,7 @@ const Hero = ({ preloaderDone = false }) => {
     <section
       id="home"
       ref={sectionRef}
-      className="w-full relative bg-[#010210]"
+      className="w-full relative bg-black"
     >
       <div className="h-[110vh] min-h-[800px] w-full flex items-center justify-center relative overflow-hidden">
         <HeroMachineOverlay />

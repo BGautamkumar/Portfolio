@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 // ─── 8 VISIBLE NODES — mapped to the Jeddah circuit perimeter ───
 // Spread horizontally (x: 10% → 92%) to create a wide, cinematic layout
 const NODE_LAYOUT = [
-  { id: "hub-strategy", label: "STRATEGY", x: 42, y: 15, labelPos: "bottom" },       // Corner 08 — apex, top
+  { id: "hub-strategy", label: "STRATEGY", x: 48, y: 16, labelPos: "bottom" },       // Corner 08 — apex, top
   { id: "hub-architecture", label: "ARCHITECTURE", x: 14, y: 28, labelPos: "right" }, // Corner 06 — upper left
   { id: "hub-quality", label: "QUALITY", x: 10, y: 48, labelPos: "right" },           // Corner 05 — left side
   { id: "hub-data", label: "DATA", x: 18, y: 73, labelPos: "right" },                // Corner 03 — bottom left
@@ -21,7 +21,7 @@ const WAYPOINTS = [
   { id: "wp-04", x: 25, y: 56 },       // Corner 04 — left mid transition
   { id: "wp-02", x: 36, y: 73 },       // Corner 02 — bottom center-left
   { id: "wp-14", x: 66, y: 78 },       // Corner 14 — bottom center-right
-  { id: "wp-13", x: 70, y: 58 },       // Corner 13 — center-right return
+  { id: "wp-13", x: 70, y: 60 },       // Corner 13 — center-right return
   { id: "wp-hairpin", x: 94, y: 48 },  // Hairpin apex — far-right edge (11↔12 turn)
 ];
 
@@ -640,8 +640,8 @@ const HeroMachineOverlay = () => {
             </filter>
 
             <linearGradient id="streak-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="transparent" />
-              <stop offset="55%" stopColor="#FF6A6A" stopOpacity="0.5" />
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="50%" stopColor="#FF6A6A" />
               <stop offset="100%" stopColor="#ffffff" />
             </linearGradient>
 

@@ -2,11 +2,12 @@ import { useState, useEffect, useRef, startTransition } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getLenis, useLenis } from "../hooks/useLenis";
+import { myProjects } from "../constants";
 
 const navItems = [
   { href: "#home", label: "Home" },
-  { href: "#about", label: "About", hasDropdown: true },
-  { href: "#projects", label: "Projects" },
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects", hasDropdown: true },
   { href: "#experience", label: "Experience" },
 ];
 
@@ -14,9 +15,18 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const closeDropdown = () => setDropdownOpen(false);
+    if (dropdownOpen) {
+      window.addEventListener("click", closeDropdown);
+    }
+    return () => window.removeEventListener("click", closeDropdown);
+  }, [dropdownOpen]);
 
   // Reference to track previous scroll position manually
   const lastScrollY = useRef(0);
@@ -155,29 +165,75 @@ const Navbar = () => {
             {/* Center: Desktop links */}
             <div className="hidden lg:flex items-center justify-center gap-[34px] flex-1">
               {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="group flex items-center gap-1.5 text-[14px] lg:text-[15px] font-medium tracking-[-0.2px] text-white/80 hover:text-white transition-all duration-300"
-                >
-                  {item.label}
+                <div key={item.href} className="relative group">
+                  <a
+                    href={item.href}
+                    onClick={(e) => {
+                      if (item.hasDropdown) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setDropdownOpen(!dropdownOpen);
+                      } else {
+                        handleNavClick(e, item.href);
+                      }
+                    }}
+                    className="flex items-center gap-1.5 text-[14px] lg:text-[15px] font-medium tracking-[-0.2px] text-white/80 hover:text-white transition-all duration-300"
+                  >
+                    {item.label}
+                    {item.hasDropdown && (
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={`opacity-60 transition-transform duration-300 mt-0.5 ${dropdownOpen ? 'rotate-180 opacity-100 text-white' : 'group-hover:opacity-100'}`}
+                      >
+                        <path d="M6 9l6 6 6-6" />
+                      </svg>
+                    )}
+                  </a>
+
                   {item.hasDropdown && (
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="opacity-60 group-hover:opacity-100 transition-opacity mt-0.5"
-                    >
-                      <path d="M6 9l6 6 6-6" />
-                    </svg>
+                    <AnimatePresence>
+                      {dropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-72 bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col p-2 z-50 cursor-default"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="px-3 py-2 text-[10px] font-medium text-white/40 uppercase tracking-widest mb-1">
+                            Featured Projects
+                          </div>
+                          {myProjects.slice(0, 3).map((proj) => (
+                            <div
+                              key={proj.id}
+                              onClick={() => {
+                                setDropdownOpen(false);
+                                handleNavClick({ preventDefault: () => {} }, "#projects");
+                              }}
+                              className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item"
+                            >
+                              <div className="w-10 h-10 rounded-lg overflow-hidden shrink-0 bg-white/5">
+                                <img src={proj.image} alt={proj.title} className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" />
+                              </div>
+                              <div className="flex flex-col">
+                                <span className="text-white text-[13px] font-semibold leading-tight mb-0.5">{proj.title}</span>
+                                <span className="text-white/50 text-[10px] uppercase tracking-wider line-clamp-1">{proj.category}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   )}
-                </a>
+                </div>
               ))}
             </div>
 
