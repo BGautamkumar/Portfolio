@@ -100,43 +100,46 @@ const Hero = ({ preloaderDone = false }) => {
     <section
       id="home"
       ref={sectionRef}
-      className="min-h-[110vh] py-32 w-full flex items-center justify-center relative overflow-hidden"
+      className="w-full relative bg-[#010210]"
     >
-      <HeroMachineOverlay />
+      <div className="h-[110vh] min-h-[800px] w-full flex items-center justify-center relative overflow-hidden">
+        <HeroMachineOverlay />
 
-      <div ref={contentRef} className="container-cinematic w-full flex flex-col items-center justify-center z-10 relative mt-[-5vh] pointer-events-none">
-        {/* Main Content */}
-        <div className="hero-content-left w-full max-w-5xl mx-auto flex flex-col justify-center items-center text-center px-4 pointer-events-auto">
-          {/* Giant Name — perfectly aligned */}
-          <div className="mb-14 overflow-hidden">
-            <h1 className="text-hero text-white leading-[0.95] tracking-[-0.04em] text-center">
-              <span className="hero-name-line block">Gautam</span>
-              <span className="hero-name-line block">
-                Kumar<span id="hero-red-dot" className="text-[#FF2D2D] relative inline-block">.</span>
-              </span>
-            </h1>
+        <div ref={contentRef} className="container-cinematic w-full flex flex-col items-center justify-center z-10 relative mt-[-5vh] pointer-events-none">
+          {/* Main Content */}
+          <div className="hero-content-left w-full max-w-5xl mx-auto flex flex-col justify-center items-center text-center px-4 pointer-events-auto">
+            {/* Giant Name — perfectly aligned */}
+            <div className="mb-14 overflow-hidden">
+              <h1 className="text-hero text-white leading-[0.95] tracking-[-0.04em] text-center">
+                <span className="hero-name-line block">Gautam</span>
+                <span className="hero-name-line block">
+                  Kumar<span id="hero-red-dot" className="text-[#FF2D2D] relative inline-block">.</span>
+                </span>
+              </h1>
+            </div>
+
+            {/* Typography Blocks */}
+            <div className="hero-text-block overflow-hidden mb-10">
+              <p className="text-2xl md:text-4xl font-light text-white/90 max-w-4xl mx-auto leading-tight tracking-tight">
+                Building scalable, high-performance web applications with engineering precision.
+              </p>
+            </div>
+
+            <div className="hero-text-block overflow-hidden mb-16">
+              <p className="text-base md:text-lg max-w-2xl mx-auto text-white/50">
+                Computer Science engineer specializing in clean architecture,
+                performant backends, and premium user experiences.
+              </p>
+            </div>
           </div>
-
-          {/* Typography Blocks */}
-          <div className="hero-text-block overflow-hidden mb-10">
-            <p className="text-2xl md:text-4xl font-light text-white/90 max-w-4xl mx-auto leading-tight tracking-tight">
-              Building scalable, high-performance web applications with engineering precision.
-            </p>
-          </div>
-
-          <div className="hero-text-block overflow-hidden mb-16">
-            <p className="text-base md:text-lg max-w-2xl mx-auto text-white/50">
-              Computer Science engineer specializing in clean architecture,
-              performant backends, and premium user experiences.
-            </p>
-          </div>
-
-
         </div>
       </div>
 
-      {/* Halftone Dithered Gradient Fade to Solid */}
-      <div className="absolute bottom-0 left-0 w-full h-16 md:h-24 pointer-events-none z-10">
+      {/* Extra space at the end of the hero section before the dot effect starts */}
+      <div className="w-full h-[23vh] bg-transparent relative"></div>
+
+      {/* Halftone Dithered Gradient Fade to Solid - Pushed exactly to the bottom edge */}
+      <div className="absolute bottom-0 left-0 w-full h-16 md:h-20 pointer-events-none z-10">
         {/* The dots */}
         <div
           className="absolute inset-0"

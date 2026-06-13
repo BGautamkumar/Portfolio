@@ -78,6 +78,7 @@ const AmbientDust = () => {
 
     const ctx = canvas.getContext("2d");
     let animationFrameId = 0;
+    let isVisible = true;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -97,6 +98,8 @@ const AmbientDust = () => {
     }));
 
     const render = () => {
+      if (!isVisible) return; // Pause burning CPU when off-screen
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((p) => {
@@ -117,11 +120,26 @@ const AmbientDust = () => {
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    // Performance Optimization: IntersectionObserver
+    // Automatically stops the canvas from re-rendering when you scroll away
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          // Restart the animation if we scroll back up
+          cancelAnimationFrame(animationFrameId);
+          render();
+        }
+      },
+      { threshold: 0 } // Trigger immediately when it enters/leaves the screen
+    );
+
+    observer.observe(canvas);
 
     return () => {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
     };
   }, []);
 
@@ -192,22 +210,8 @@ const HeroMachineOverlay = () => {
   const [meshPaths, setMeshPaths] = useState([]);
   const [dotCoords, setDotCoords] = useState(null);
 
-  const mouseX = useSpring(0, { stiffness: 40, damping: 20 });
-  const mouseY = useSpring(0, { stiffness: 40, damping: 20 });
-
   const hubIds = useMemo(() => NODE_LAYOUT.map((n) => n.id), []);
   const trailOffsets = [0, 26, 52, 78, 104];
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const { innerWidth, innerHeight } = window;
-      mouseX.set((e.clientX / innerWidth - 0.5) * 24);
-      mouseY.set((e.clientY / innerHeight - 0.5) * 24);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -226,9 +230,10 @@ const HeroMachineOverlay = () => {
         const el = document.getElementById(id);
         if (!el) return null;
         const r = el.getBoundingClientRect();
+        const isRedDot = id === "hero-red-dot";
         return {
           x: r.left - rect.left + r.width / 2,
-          y: r.top - rect.top + r.height / 2,
+          y: r.top - rect.top + (isRedDot ? r.height * 0.65 : r.height / 2),
         };
       };
 
@@ -256,20 +261,17 @@ const HeroMachineOverlay = () => {
       const crossPaths = [
         // Long diagonals spanning the full width
         buildSmoothPath([strategy, data, delivery].filter(Boolean), 0.85),
-        buildSmoothPath([architecture, cloud, security].filter(Boolean), 0.82),
-        buildSmoothPath([quality, cloud, product].filter(Boolean), 0.75),
-        buildSmoothPath([strategy, security, delivery].filter(Boolean), 0.78),
+        buildSmoothPath([architecture, cloud, security].filter(Boolean), 0.9),
 
         // Medium connections
         buildSmoothPath([architecture, strategy, product].filter(Boolean), 0.6),
-        buildSmoothPath([quality, architecture].filter(Boolean), 0.4),
+
         buildSmoothPath([data, cloud, delivery].filter(Boolean), 0.7),
         buildSmoothPath([product, delivery].filter(Boolean), 0.65),
 
         // Cross-hatching through the circuit interior
         buildSmoothPath([strategy, dot, delivery].filter(Boolean), 0.9),
         buildSmoothPath([quality, delivery].filter(Boolean), 0.8),
-        buildSmoothPath([architecture, product].filter(Boolean), 0.5),
         buildSmoothPath([data, security].filter(Boolean), 0.85),
         buildSmoothPath([quality, security].filter(Boolean), 0.95),
         buildSmoothPath([architecture, delivery].filter(Boolean), 0.7),
@@ -329,9 +331,10 @@ const HeroMachineOverlay = () => {
         if (el) {
           const r = el.getBoundingClientRect();
           const cRect = containerRef.current.getBoundingClientRect();
+          const isRedDot = id === "hero-red-dot";
           nodePositions[id] = {
             x: r.left - cRect.left + r.width / 2,
-            y: r.top - cRect.top + r.height / 2,
+            y: r.top - cRect.top + (isRedDot ? r.height * 0.65 : r.height / 2),
           };
         }
       });
@@ -620,7 +623,6 @@ const HeroMachineOverlay = () => {
 
       <motion.div
         className="absolute inset-0 w-full h-full"
-        style={{ x: mouseX, y: mouseY }}
       >
         <svg
           ref={svgRef}

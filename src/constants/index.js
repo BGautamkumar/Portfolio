@@ -13,7 +13,7 @@ export const myProjects = [
     href: "",
     github: "https://github.com/BGautamkumar/Zoro-Trip-Planner",
     logo: "",
-    image: "/assets/projects/zoro-trip-planner.jpg",
+    image: "/assets/projects/zoro-trip-planner.webp",
     tags: [
       { id: 1, name: "React", path: "/assets/logos/react.svg" },
       { id: 2, name: "JavaScript", path: "/assets/logos/javascript.svg" },
@@ -36,7 +36,7 @@ export const myProjects = [
     href: "",
     github: "https://github.com/BGautamkumar/Aurev",
     logo: "",
-    image: "/assets/projects/aurev.jpg",
+    image: "/assets/projects/aurev.webp",
     tags: [
       { id: 1, name: "React", path: "/assets/logos/react.svg" },
       { id: 2, name: "NodeJS", path: "/assets/logos2/nodejs.svg" },
@@ -59,7 +59,7 @@ export const myProjects = [
     href: "",
     github: "",
     logo: "",
-    image: "/assets/projects/wordpress-theme.jpg",
+    image: "/assets/projects/wordpress-theme.webp",
     tags: [
       { id: 1, name: "Wordpress", path: "/assets/logos/wordpress.svg" },
       { id: 2, name: "Html5", path: "/assets/logos/html5.svg" },
@@ -83,7 +83,7 @@ export const myProjects = [
     href: "",
     github: "",
     logo: "",
-    image: "/assets/projects/auth-system.jpg",
+    image: "/assets/projects/auth-system.webp",
     tags: [
       { id: 1, name: "Auth0", path: "/assets/logos/auth0.svg" },
       { id: 2, name: "react", path: "/assets/logos/react.svg" },
@@ -105,7 +105,7 @@ export const myProjects = [
     href: "",
     github: "https://github.com/BGautamkumar/realitydrop",
     logo: "",
-    image: "/assets/projects/realitydrop.jpg",
+    image: "/assets/projects/realitydrop.webp",
     tags: [
       { id: 1, name: "React", path: "/assets/logos/react.svg" },
       { id: 2, name: "JavaScript", path: "/assets/logos/javascript.svg" },
@@ -128,7 +128,7 @@ export const myProjects = [
     href: "",
     github: "",
     logo: "",
-    image: "/assets/projects/game-engine.jpg",
+    image: "/assets/projects/game-engine.webp",
     tags: [
       { id: 1, name: "c++", path: "/assets/logos/cplusplus.svg" },
       { id: 2, name: "csharp", path: "/assets/logos/csharp.svg" },
@@ -149,7 +149,7 @@ export const myProjects = [
     href: "",
     github: "https://github.com/BGautamkumar/Weather-ForecastingV1.2",
     logo: "",
-    image: "/assets/projects/weather-forecasting.jpg",
+    image: "/assets/projects/weather-forecasting.webp",
     tags: [
       { id: 1, name: "Python", path: "/assets/logos/python.svg" },
       { id: 2, name: "HTML", path: "/assets/logos/html5.svg" },

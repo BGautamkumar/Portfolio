@@ -390,7 +390,7 @@ const EditorialHeader = () => {
       <div className="editorial-title-overflow">
         <h2 className="editorial-title-line-1">Featured</h2>
       </div>
-      <div className="editorial-title-overflow">
+      <div className="editorial-title-overflow-visible">
         <h2 className="editorial-title-line-2">Projects</h2>
       </div>
       <div className="editorial-rule" />

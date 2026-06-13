@@ -236,7 +236,7 @@ const Contact = () => {
             {/* Giant Typography – Arkitek-style chrome fade */}
             <div
               className="w-full flex justify-center items-end select-none pointer-events-none relative z-0 overflow-hidden"
-              style={{ height: 'clamp(6rem, 16vw, 18rem)', marginTop: '6rem' }}
+              style={{ height: 'clamp(6rem, 16vw, 18rem)', marginTop: '3rem' }}
             >
               <h1
                 className="font-['Clash_Display'] font-bold text-center tracking-tight leading-[0.85]"

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, startTransition } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getLenis, useLenis } from "../hooks/useLenis";
@@ -20,6 +20,37 @@ const Navbar = () => {
 
   // Reference to track previous scroll position manually
   const lastScrollY = useRef(0);
+  const idleTimerRef = useRef(null);
+
+  // Auto-hide navbar when idle in the Hero section
+  useEffect(() => {
+    const handleActivity = () => {
+      // If we are at the top, activity wakes up the navbar
+      if (lastScrollY.current < 120) {
+        setHidden(false);
+      }
+
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+
+      idleTimerRef.current = setTimeout(() => {
+        // Only auto-hide if we are at the top and the mobile menu is not open
+        if (lastScrollY.current < 120 && !isOpen) {
+          setHidden(true);
+        }
+      }, 3000); // 3 seconds of zero interaction
+    };
+
+    handleActivity();
+
+    window.addEventListener("mousemove", handleActivity);
+    window.addEventListener("keydown", handleActivity);
+    
+    return () => {
+      window.removeEventListener("mousemove", handleActivity);
+      window.removeEventListener("keydown", handleActivity);
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    };
+  }, [isOpen]);
 
   // Hide on scroll down, show on scroll up perfectly synced with Lenis
   useLenis((e) => {
@@ -44,28 +75,34 @@ const Navbar = () => {
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
-    setIsOpen(false);
 
-    const scrollToTarget = () => {
-      const lenis = getLenis();
-      const target = document.querySelector(href);
+    // Yield to the main thread so the browser can instantly paint the click interaction (Perfect INP)
+    setTimeout(() => {
+      startTransition(() => {
+        setIsOpen(false);
 
-      if (lenis && target) {
-        lenis.scrollTo(target, { offset: 80, duration: 1.2 });
-      } else if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    };
+        const scrollToTarget = () => {
+          const lenis = getLenis();
+          const target = document.querySelector(href);
 
-    if (location.pathname !== "/") {
-      navigate("/");
-      requestAnimationFrame(() => {
-        setTimeout(scrollToTarget, 100);
+          if (lenis && target) {
+            lenis.scrollTo(target, { offset: 80, duration: 1.2 });
+          } else if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        };
+
+        if (location.pathname !== "/") {
+          navigate("/");
+          requestAnimationFrame(() => {
+            setTimeout(scrollToTarget, 100);
+          });
+          return;
+        }
+
+        scrollToTarget();
       });
-      return;
-    }
-
-    scrollToTarget();
+    }, 0);
   };
 
   useEffect(() => {
